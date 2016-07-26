@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>client</artifactId>
+	<artifactId>beer-api-consumer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>client</name>
+	<name>beer-api-consumer</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -41,6 +41,7 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- SPRING CLOUD CONTRACT -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-contract-wiremock</artifactId>
@@ -51,6 +52,7 @@
 			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- SPRING CLOUD CONTRACT -->
 	</dependencies>
 
 
