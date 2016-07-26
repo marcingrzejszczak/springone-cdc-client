@@ -11,12 +11,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * @author Marcin Grzejszczak
@@ -27,7 +25,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class BeerControllerTest {
 
 	TestRestTemplate template = new TestRestTemplate();
-	ObjectMapper objectMapper = new ObjectMapper();
 	MockMvc mockMvc;
 
 	@Before
@@ -38,7 +35,37 @@ public class BeerControllerTest {
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(new Person("josh", 22))))
+					.content(asJson(new Person("marcin", 22))))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.content().string("THERE YOU GO"));
+	}
+
+	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(asJson(new Person("marcin", 17))))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.content().string("GET LOST"));
+	}
+
+	private String asJson(Person person) {
+		try {
+			return new ObjectMapper().writeValueAsString(person);
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		}
+	}
+}
+
+
+/*
+
+
+
+	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(asJson(new Person("marcin", 22))))
 				.andExpect(status().isOk())
 				.andExpect(content().string("THERE YOU GO"));
 	}
@@ -46,8 +73,10 @@ public class BeerControllerTest {
 	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(new Person("josh", 17))))
+					.content(asJson(new Person("marcin", 17))))
 				.andExpect(status().isOk())
 				.andExpect(content().string("GET LOST"));
 	}
-}
+
+ */
+
