@@ -17,7 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-// @AutoConfigureStubRunner
+/*@AutoConfigureStubRunner(workOffline = false,
+		ids = "com.example:beer-api-producer:+:stubs:8090")*/
 public class BeerControllerTest extends AbstractTest {
 
 	@Autowired  MockMvc mockMvc;
