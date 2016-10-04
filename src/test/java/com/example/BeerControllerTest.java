@@ -42,7 +42,7 @@ TYPICAL APPROACH
 
 @Rule public WireMockRule rule = new WireMockRule(WireMockSpring.options().port(8090));
 
-rule.stubFor(WireMock.post(WireMock.urlEqualTo("/check")).willReturn(WireMock.aResponse().withStatus(200).withBody("hello")));
+rule.stubFor(WireMock.post(WireMock.urlEqualTo("/test")).willReturn(WireMock.aResponse().withStatus(200).withBody("hello")));
 
  */
 

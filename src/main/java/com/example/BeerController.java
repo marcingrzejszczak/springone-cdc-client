@@ -30,7 +30,7 @@ class BeerController {
 	public String gimmeABeer(@RequestBody Person person) throws MalformedURLException {
 		ResponseEntity<String> response = this.restTemplate.exchange(
 				RequestEntity
-						.post(URI.create("http://localhost:8090/check"))
+						.post(URI.create("http://localhost:8090/test"))
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(person),
 				String.class);
